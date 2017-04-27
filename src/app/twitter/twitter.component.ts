@@ -12,30 +12,28 @@ import { IAppState } from '../store';
   styleUrls: ['./twitter.component.css']
 })
 export class TwitterComponent {
-  form: FormGroup;
-
   tweets$: Observable<{}>;
 
-  constructor(public fb: FormBuilder, public store: Store<IAppState>) {
+  constructor(public store: Store<IAppState>) {
     this.tweets$ = store.select('tweet');
-    this.getTweets();
   }
   
-  getTweets(): void {
-    this.store.dispatch({
-      type: TWEETS_GET,
-      payload: {
-        hash: "testValue" /*this.form.get('hash').value*/
-      }
-    });
+  submitSearch(searchForm: FormGroup): void {
+    if (searchForm.valid) {
+      this.store.dispatch({
+        type: TWEETS_GET,
+        payload: {
+          hash: searchForm.value.text
+        }
+      });
+      searchForm.reset();
+    }
   }
 
   removeTweet(tweet: {}): void {
-
     this.store.dispatch({
       type: TWEET_REMOVE,
       payload: tweet
     });
-
   }
 }

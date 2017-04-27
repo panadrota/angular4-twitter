@@ -1,31 +1,20 @@
 import { Request, Response, Router } from "express";
 import * as uuid from "uuid";
-
 const tweetRouter: Router = Router();
+const Twit = require('twit');
 
-const tweets = [
-  {
-    id: 1,
-    text: "test1",
-    date: "date1"
-  },{
-    id: 2,
-    text: "test2",
-    date: "date2"
-  },{
-    id: 2,
-    text: "test2",
-    date: "date2"
-  },{
-    id: 3,
-    text: "test3",
-    date: "date3"
-  },
-];
+tweetRouter.get("/:hash", (request: Request, resp: Response) => {
+  let T = new Twit({
+    consumer_key:         'UGq1qonrqel2mbSW46A0BrnTP',
+    consumer_secret:      '49bRiwq8OEnIWHHUnr9J59k3kqJVFDZWOXYOBnqNCTke8KPMic',
+    access_token:         '207711836-GXVq3PvXC14JjU5WLypiAoLAMIy03IPElO0eY4IJ',
+    access_token_secret:  '5RSRbf9OjZWPgvdxXobFvDDzeorflf81eGZBcdVJl7gGx',
+    timeout_ms:           60*1000,  
+  });
 
-tweetRouter.get("/:hash", (request: Request, response: Response) => {
-  setTimeout(() => {response.json(tweets)}, 5000);  
-  //return this.http.get(`http://search.twitter.com/search.json?q=%23test`);      
+  T.get('search/tweets', { q: `#${request.params.hash}`, count: 10 }, function(err, data, response) {
+    resp.json(data.statuses);
+  })
 });
 
 tweetRouter.delete("/:id", (request: Request, response: Response) => {

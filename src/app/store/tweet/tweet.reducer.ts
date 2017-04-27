@@ -4,7 +4,13 @@ import { TWEET_REMOVE, TWEET_REMOVE_FAIL, TWEET_REMOVE_SUCCESS, TWEETS_GET, TWEE
 export interface ITweet {
   id: string;
   text: string;
-  date: string;
+  created_at: string;
+  user: ITweetUser;
+}
+
+export interface ITweetUser {
+  id: string;
+  name: string;
 }
 
 export const tweetReducer: ActionReducer<ITweet[]> = (state: Array<ITweet> = [], action: Action): ITweet[] => {

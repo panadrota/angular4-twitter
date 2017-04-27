@@ -2,16 +2,21 @@
 <app-ui-loader [visible]="(tweets$ | async)?.isFetching"></app-ui-loader>
 <app-ui-notes *ngIf="!(tweets$ | async)?.length" type="info" text="No tweets."></app-ui-notes>
 
+<form class="form" #searchForm="ngForm" (submit)="submitSearch(searchForm)" [ngClass]="{'error': searchForm.errors && (searchForm.dirty || searchForm.touched)}">
+  <app-ui-input placeholder="Enter hashtag without #" name="text"></app-ui-input>
+
+  <app-ui-button [disabled]="!searchForm.valid"  text="Search" (click)="submitSearch(searchForm)"></app-ui-button>
+</form>
+
 <div *ngIf="!(tweets$ | async)?.isFetching" >
   <div class="tweet animation" *ngFor="let item of tweets$ | async">
-    <a>{{item.name}}</a>
+    <p>{{item.name}}</p>
     <div class="text">
-      {{item.text}}
+      <p>{{item.text}}</p>
     </div>
     <div class="actions">
       <a class="reply"><button class="ui button icon basic red" (click)="removeTweet(item.id)">Remove</button></a>
     </div>
-
     <div class="clear"></div>
   </div>
 </div>
