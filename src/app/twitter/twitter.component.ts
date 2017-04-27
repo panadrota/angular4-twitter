@@ -18,14 +18,14 @@ export class TwitterComponent {
 
   constructor(public fb: FormBuilder, public store: Store<IAppState>) {
     this.tweets$ = store.select('tweet');
+    this.getTweets();
   }
   
   getTweets(): void {
-
     this.store.dispatch({
       type: TWEETS_GET,
       payload: {
-        hash: this.form.get('hash').value
+        hash: "testValue" /*this.form.get('hash').value*/
       }
     });
   }

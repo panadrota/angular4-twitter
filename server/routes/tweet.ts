@@ -23,9 +23,9 @@ const tweets = [
   },
 ];
 
-tweetRouter.post("/", (request: Request, response: Response) => {
-
-  response.json(tweets);
+tweetRouter.get("/:hash", (request: Request, response: Response) => {
+  setTimeout(() => {response.json(tweets)}, 5000);  
+  //return this.http.get(`http://search.twitter.com/search.json?q=%23test`);      
 });
 
 tweetRouter.delete("/:id", (request: Request, response: Response) => {

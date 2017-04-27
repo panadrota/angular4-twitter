@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -10,20 +10,13 @@ export class TwitterService {
   constructor(public http: Http) {}
 
   /**
-   * Get weather forecast
+   * Get tweets by hash
    *
-   * @param longitude
-   * @param latitude
+   * @param hash
    * @returns {Observable<Response>}
    */
   getTweets(hash: string): Observable<{}> {
-
-    return this.http.get(`https://simple-weather.p.mashape.com/weatherdata?lat=${hash}`, {
-      headers: new Headers({
-        'X-Mashape-Key': this.mashapeKey,
-        'Accept': 'application/json'
-      })
-    });
+    return this.http.get(`/api/tweet/${hash}`);    
   }
 
 }

@@ -11,25 +11,18 @@ export const tweetReducer: ActionReducer<ITweet[]> = (state: Array<ITweet> = [],
 
   switch (action.type) {
 
-    case TWEET_REMOVE_SUCCESS:
-
-      return state.filter((tweet: ITweet) => action.payload.id !== tweet.id);
-    
     case TWEETS_GET:
-
       return Object.assign({}, state, {
-        isFetching: true,        
-        dataError: false
+        isFetching: true
       });
 
+    case TWEET_REMOVE_SUCCESS:
+      return state.filter((tweet: ITweet) => action.payload.id != tweet.id);
+    
     case TWEETS_GET_SUCCESS:
-
-      return Object.assign({}, state, {
-        data: action.payload
-      });
+      return action.payload;
 
     case TWEETS_GET_FAIL:
-
       return Object.assign({}, state, {
         dataError: true
       });

@@ -15,7 +15,7 @@ import { TwitterService } from '../../twitter/twitter.service';
 
 @Injectable()
 export class TweetEffects {
-
+    
   @Effect()
   removeTweet$ = this.actions$
     .ofType(TWEET_REMOVE)
@@ -34,9 +34,10 @@ export class TweetEffects {
     .switchMap((action: Action) => {
 
       return this.twitterService.getTweets(action.payload.hash)
-        .map((response: Response) => response.text())
+        .map((response: Response) => response.json())
         .map((response) => ({type: TWEETS_GET_SUCCESS, payload: response}))
         .catch(() => Observable.of(({ type: TWEETS_GET_FAIL })));
+      
     });
 
   constructor(private actions$: Actions, private twitterService: TwitterService, private http: Http) {}
