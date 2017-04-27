@@ -1,0 +1,14 @@
+<h3>Tweets</h3>
+<app-ui-notes *ngIf="!(tweets$ | async)?.length" type="info" text="No tweets."></app-ui-notes>
+
+<div class="tweet animation" *ngFor="let item of tweets$ | async">
+  <a>{{item.name}}</a>
+  <div class="text">
+    {{item.text}}
+  </div>
+  <div class="actions">
+    <a class="reply"><button class="ui button icon basic red" (click)="removeTweet(item.id)">Remove</button></a>
+  </div>
+
+  <div class="clear"></div>
+</div>

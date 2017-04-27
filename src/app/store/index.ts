@@ -12,6 +12,10 @@ import { FeedEffects } from './feed/feed.effects';
 import { environment } from '../../environments/environment';
 import { IWeather, weatherReducer } from './weather/weather.reducer';
 import { WeatherEffects } from './weather/weather.effects';
+
+import { ITweet, tweetReducer } from './tweet/tweet.reducer';
+import { TweetEffects } from './tweet/tweet.effects';
+
 import { CommonModule } from '@angular/common';
 
 // all new reducers should be define here
@@ -19,13 +23,15 @@ export interface IAppState {
   feed: IFeed[];
   profile: IProfile;
   weather: IWeather;
+  tweet: ITweet[]
 }
 
 // all new reducers should be define here
 const reducers = {
   feed: feedReducer,
   profile: profileReducer,
-  weather: weatherReducer
+  weather: weatherReducer,
+  tweet: tweetReducer
 };
 
 const productionReducer: ActionReducer<IAppState> = combineReducers(reducers);
@@ -56,5 +62,6 @@ export const instrumentation: ModuleWithProviders =
 export const effects: ModuleWithProviders[] = [
   EffectsModule.run(ProfileEffects),
   EffectsModule.run(FeedEffects),
-  EffectsModule.run(WeatherEffects)
+  EffectsModule.run(WeatherEffects),
+  EffectsModule.run(TweetEffects)
 ];
