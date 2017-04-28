@@ -5,8 +5,6 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class TwitterService {
 
-  private mashapeKey = 'O9p2cWOU18mshKOD0m6aBMMVXOrxp1PaIUYjsniijuS94Ib56u';
-
   constructor(public http: Http) {}
 
   /**

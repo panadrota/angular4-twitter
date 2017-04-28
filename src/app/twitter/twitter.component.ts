@@ -13,20 +13,24 @@ import { IAppState } from '../store';
 })
 export class TwitterComponent {
   tweets$: Observable<{}>;
+  form: FormGroup;
 
-  constructor(public store: Store<IAppState>) {
+  constructor(public fb: FormBuilder, public store: Store<IAppState>) {
     this.tweets$ = store.select('tweet');
+    this.form = fb.group({
+      text: ['', Validators.required]
+    });
   }
   
-  submitSearch(searchForm: FormGroup): void {
-    if (searchForm.valid) {
+  submitSearch(): void {
+    if (this.form.valid) {
       this.store.dispatch({
         type: TWEETS_GET,
         payload: {
-          hash: searchForm.value.text
+          hash: this.form.value.text
         }
       });
-      searchForm.reset();
+      this.form.reset();
     }
   }
 

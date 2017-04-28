@@ -5,13 +5,7 @@ import { compose } from '@ngrx/core';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { feedReducer, IFeed } from './feed/feed.reducer';
-import { profileReducer, IProfile } from './profile/profile.reducer';
-import { ProfileEffects } from './profile/profile.effects';
-import { FeedEffects } from './feed/feed.effects';
 import { environment } from '../../environments/environment';
-import { IWeather, weatherReducer } from './weather/weather.reducer';
-import { WeatherEffects } from './weather/weather.effects';
 
 import { ITweet, tweetReducer } from './tweet/tweet.reducer';
 import { TweetEffects } from './tweet/tweet.effects';
@@ -20,17 +14,11 @@ import { CommonModule } from '@angular/common';
 
 // all new reducers should be define here
 export interface IAppState {
-  feed: IFeed[];
-  profile: IProfile;
-  weather: IWeather;
   tweet: ITweet[]
 }
 
 // all new reducers should be define here
 const reducers = {
-  feed: feedReducer,
-  profile: profileReducer,
-  weather: weatherReducer,
   tweet: tweetReducer
 };
 
@@ -60,8 +48,5 @@ export const instrumentation: ModuleWithProviders =
   (!environment.production) ? StoreDevtoolsModule.instrumentOnlyWithExtension() : DummyModule.forRoot();
 
 export const effects: ModuleWithProviders[] = [
-  EffectsModule.run(ProfileEffects),
-  EffectsModule.run(FeedEffects),
-  EffectsModule.run(WeatherEffects),
   EffectsModule.run(TweetEffects)
 ];
