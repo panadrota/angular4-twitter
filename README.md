@@ -1,10 +1,10 @@
-## Angular2 Express Starter ( Advanced )
+## App overview
 
 - Angular 4 ( 4.x )
 - ExpressJS ( 4.x - with compression )
 - Webpack ( angular-cli )
 
-## Install / Development
+## Install / Run
 
 ```bash
 git clone https://github.com/panadrota/angular4-twitter.git
